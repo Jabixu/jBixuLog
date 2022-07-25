@@ -70,4 +70,14 @@
     nbproject/build-impl.xml file. 
 
     -->
+        
+    <target name="-pre-init">
+        <property name="version.num" value="1.2" />
+    </target>
+    <target name="-post-jar">
+        <move file="${dist.jar}" tofile="${dist.dir}/${application.title}_v${version.num}.jar"/>
+<!--        <echo file="${dist.dir}/${application.title}.bat">start java -jar ${application.title}_v${version.num}.jar</echo>
+        <zip destfile="${dist.dir}/${application.title}_v${version.num}.zip" basedir="${dist.dir}" />-->
+
+    </target>
 </project>
