@@ -39,9 +39,25 @@ public class JFrameLog extends JFrame{
     
     private JTextPane tpane_log;
     private StyledDocument doc;
+
+    /**
+     * Identificador para el icono 'Papel'
+     */
     public static final String ICON_LOG = "Log";
+
+    /**
+     * Identificador para el icono 'BixuMan'
+     */
     public static final String ICON_BIXU = "Bixu";
+
+    /**
+     * Identificador para el idioma 'Español'
+     */
     public static final String LANG_ES = "es";
+
+    /**
+     * Identificador para el idioma 'Inglés'
+     */
     public static final String LANG_EN = "en";
     private JButton btnClear = new JButton("Limpiar");
     private JButton btnCopy = new JButton("Copiar");
@@ -91,6 +107,20 @@ public class JFrameLog extends JFrame{
      */
     public JFrameLog(String titulo, String lookAndFeel, String icon, String lang){
         super(titulo);
+        if (!icon.equals(ICON_BIXU) && !icon.equals(ICON_LOG)){
+            System.out.println("Icono no configurado");
+            return;
+        }
+        if (!lang.equals(LANG_ES) && !lang.equals(LANG_EN)){
+            System.out.println("Idioma no configurado");
+            return;
+        }
+        
+        
+        this.icon = icon;
+        this.lang = lang;
+        
+        
         try {
             UIManager.setLookAndFeel(lookAndFeel);                 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -128,16 +158,33 @@ public class JFrameLog extends JFrame{
 
         
         
-        this.icon = icon;
-        this.lang = lang;
         //setVisible(true);
         
     }
     
+    /**
+     * Configura el icono de la ventana con una imagen
+     * @param icon <code>String</code> con el tipo de icono ({@link org.jabixu.log.JFrameLog#ICON_LOG} or {@link org.jabixu.log.JFrameLog#ICON_BIXU}) o con la URL del archivo png 
+     */
     public void setIcon(String icon){
-        this.icon = icon;
+        ArrayList<Image> images = new ArrayList<>();
+        if (icon.equals(ICON_BIXU) || icon.equals(ICON_LOG)){
+            images.add(new ImageIcon(getClass().getResource("/img/"+icon+"20.png")).getImage());
+            images.add(new ImageIcon(getClass().getResource("/img/"+icon+"24.png")).getImage());
+            images.add(new ImageIcon(getClass().getResource("/img/"+icon+"36.png")).getImage());
+            images.add(new ImageIcon(getClass().getResource("/img/"+icon+"48.png")).getImage());
+            images.add(new ImageIcon(getClass().getResource("/img/"+icon+"60.png")).getImage());
+        } else{
+            images.add(new ImageIcon(icon).getImage());
+        }
+        setIconImages(images);
+        
+        setVisible(true);
     }
     
+    /**
+     * Hace visible la ventana
+     */
     public void setVisible(){
         ArrayList<Image> images = new ArrayList<>();
         images.add(new ImageIcon(getClass().getResource("/img/"+icon+"20.png")).getImage());
@@ -150,14 +197,23 @@ public class JFrameLog extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * Deshabilita el botón 'Limpiar'
+     */
     public void disableClearButton(){
         btnClear.setVisible(false);
     }
     
+    /**
+     * Deshabilita el botón 'Copiar'
+     */
     public void disableCopyButton(){
         btnCopy.setVisible(false);
     }
     
+    /**
+     * Deshabilita el botón 'Cerrar'
+     */
     public void disableCloseButton(){
         btnClose.setVisible(false);
     }
@@ -178,7 +234,8 @@ public class JFrameLog extends JFrame{
                 btnClose.setText("Close");
                 break;
             default:
-                System.err.println("Idioma no configurado");
+                //Aquí no debería llegar
+                System.err.println("Algo ha ido mal");
                 return false;
         }
         

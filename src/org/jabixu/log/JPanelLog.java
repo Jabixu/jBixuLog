@@ -39,6 +39,10 @@ public class JPanelLog extends JPanel{
      * @param lang <code>String</code> con el idioma: {@link org.jabixu.log.JPanelLog#LANG_ES} or {@link org.jabixu.log.JPanelLog#LANG_EN}
      */
     public JPanelLog(String lang){
+        if (!lang.equals(LANG_ES) && !lang.equals(LANG_EN)){
+            System.out.println("Idioma no configurado");
+            return;
+        }
         this.lang = lang;
         addComponentToPane();
     }
@@ -56,7 +60,8 @@ public class JPanelLog extends JPanel{
                 btnCopy.setText("Copy");
                 break;
             default:
-                System.err.println("Idioma no configurado");
+                //Aquí no debería llegar
+                System.err.println("Algo ha ido mal");
                 return;
         }
         
@@ -112,10 +117,16 @@ public class JPanelLog extends JPanel{
         //pack();
     }
 
+    /**
+     * Deshabilita el botón 'Limpiar'
+     */
     public void disableClearButton(){
         btnClear.setVisible(false);
     }
     
+    /**
+     * Deshabilita el botón 'Copiar'
+     */
     public void disableCopyButton(){
         btnCopy.setVisible(false);
     }
