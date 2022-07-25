@@ -49,9 +49,11 @@ public class JPanelLog extends JPanel{
         if (lang.equals(LANG_ES)){
             btnClear.setText("Limpiar");
             btnCopy.setText("Copiar");
-        } else{
+        } else if (lang.equals(LANG_EN)){
             btnClear.setText("Clear");
             btnCopy.setText("Copy");
+        } else{
+            System.err.println("Idioma no configurado");
         }
         
         tpane_log = new JTextPane();
