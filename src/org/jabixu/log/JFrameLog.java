@@ -56,6 +56,7 @@ public class JFrameLog extends JFrame{
         this("Log");
     }
     
+    
     /**
      * Constructor con título
      * @param titulo <code>String</code> con el título
