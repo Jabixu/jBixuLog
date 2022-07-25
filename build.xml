@@ -80,4 +80,5 @@
         <zip destfile="${dist.dir}/${application.title}_v${version.num}.zip" basedir="${dist.dir}" />-->
 
     </target>
+    
 </project>
