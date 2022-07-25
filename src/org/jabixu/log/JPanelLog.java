@@ -46,14 +46,18 @@ public class JPanelLog extends JPanel{
     private void addComponentToPane() {
         btnClear = new JButton();
         btnCopy = new JButton();
-        if (lang.equals(LANG_ES)){
-            btnClear.setText("Limpiar");
-            btnCopy.setText("Copiar");
-        } else if (lang.equals(LANG_EN)){
-            btnClear.setText("Clear");
-            btnCopy.setText("Copy");
-        } else{
-            System.err.println("Idioma no configurado");
+        switch (lang) {
+            case LANG_ES:
+                btnClear.setText("Limpiar");
+                btnCopy.setText("Copiar");
+                break;
+            case LANG_EN:
+                btnClear.setText("Clear");
+                btnCopy.setText("Copy");
+                break;
+            default:
+                System.err.println("Idioma no configurado");
+                return;
         }
         
         tpane_log = new JTextPane();
@@ -106,7 +110,6 @@ public class JPanelLog extends JPanel{
         layout.setHorizontalGroup(hGroup);
         layout.setVerticalGroup(vGroup);
         //pack();
-                
     }
 
     public void disableClearButton(){

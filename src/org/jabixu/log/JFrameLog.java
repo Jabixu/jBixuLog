@@ -100,7 +100,8 @@ public class JFrameLog extends JFrame{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //Create and set up the content pane.
-        addComponentToPane(getContentPane());
+        if (addComponentToPane(getContentPane()) == false)
+            return;
 
         //Display the window.
         pack();
@@ -161,18 +162,24 @@ public class JFrameLog extends JFrame{
         btnClose.setVisible(false);
     }
     
-    private void addComponentToPane(Container contentPane) {
+    private boolean addComponentToPane(Container contentPane) {
         btnClear = new JButton();
         btnCopy = new JButton();
         btnClose = new JButton();
-        if (lang.equals(LANG_ES)){
-            btnClear.setText("Limpiar");
-            btnCopy.setText("Copiar");
-            btnClose.setText("Cerrar");
-        } else{
-            btnClear.setText("Clear");
-            btnCopy.setText("Copy");
-            btnClose.setText("Close");
+        switch (lang) {
+            case LANG_ES:
+                btnClear.setText("Limpiar");
+                btnCopy.setText("Copiar");
+                btnClose.setText("Cerrar");
+                break;
+            case LANG_EN:
+                btnClear.setText("Clear");
+                btnCopy.setText("Copy");
+                btnClose.setText("Close");
+                break;
+            default:
+                System.err.println("Idioma no configurado");
+                return false;
         }
         
         tpane_log = new JTextPane();
@@ -241,6 +248,7 @@ public class JFrameLog extends JFrame{
         layout.setHorizontalGroup(hGroup);
         layout.setVerticalGroup(vGroup);       
                 
+        return true;
     }
 
     /**
